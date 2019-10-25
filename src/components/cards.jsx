@@ -1,5 +1,30 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import styled from "styled-components";
+
+const Cardstyle = styled.div`
+  width: 80%;
+  font-size: 1.2rem;
+  margin: auto;
+  padding: 10px;
+  border: 2px solid green;
+  border-radius: 10px;
+
+  ${props => (props.type === "primary" ? `background: lightyellow` : null)}
+  ${props => (props.type === "secondary" ? `background: lightgreen` : null)}
+`;
+
+const Imagestyle = styled.img`
+  height: 300px;
+  width: 300px;
+  border-radius: 10px;
+`;
+
+const Vidstyle = styled.iframe`
+  height: 300px;
+  width: 300px;
+  border-radius: 10px;
+`;
 
 function Card() {
   const [state, setState] = useState();
@@ -28,19 +53,19 @@ function Card() {
 
   if (state.url.includes("jpg")) {
     return (
-      <div className="cards">
-        <img className="img" src={state.url} alt="Photo of the day" />
+      <Cardstyle type="secondary">
+        <Imagestyle src={state.url} alt="Photo of the day" />
         <h2>{state.title}</h2>
         <p>{state.explanation}</p>
-      </div>
+      </Cardstyle>
     );
   } else {
     return (
-      <div className="cards">
-        <iframe title="vid" className="img" src={state.url}></iframe>
+      <Cardstyle type="primary">
+        <Vidstyle title="vid" src={state.url}></Vidstyle>
         <h2>{state.title}</h2>
         <p>{state.explanation}</p>
-      </div>
+      </Cardstyle>
     );
   }
 }
